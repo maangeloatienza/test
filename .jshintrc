@@ -1,0 +1,22 @@
+{
+    "browser": true,
+    "esnext": true,
+    "globals": {},
+    "globalstrict": true,
+    "quotmark": "single",
+    "undef": true,
+    "unused": true,
+    "node": true,
+    "mocha": true,
+    "laxbreak": true,
+    "curly": true,
+    "eqeqeq": true,
+    "latedef": false,
+    "immed": true,
+    "maxdepth": 4,
+    "maxlen": 150,
+    "shadow": "outer",
+    "elision": true,
+    "expr": true,
+    "maxlen": 170 // routes too long
+}
