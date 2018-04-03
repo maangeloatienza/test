@@ -108,12 +108,14 @@ exports.assign = (req,res,next)=>{
     }
     start();
 };
-
-exports.get_assignment = (req,res,next)=>{
+/* 
+exports.retrieve = (req,res,next)=>{
     function start(){
         mysql.use('master')
-            .query(`SELECT id,courier_id,courier_name,item_name,tracking_num,location,DATE(date_received) AS date_rcv,
-                   TIME(date_received) AS time_rcv, status FROM temp_assignment WHERE status = ?`,
+            .query(`SELECT id,courier_id,courier_name,item_name,tracking_num,location,
+                    DATE(date_received) AS date_rcv,
+                    TIME(date_received) AS time_rcv,
+                    status FROM temp_assignment WHERE status = ?`,
             [status[1]],
             send_response
         )
@@ -130,8 +132,37 @@ exports.get_assignment = (req,res,next)=>{
             return res.error('ZERO_RES','NO RECORDS FOUND');
         }
 
-        res.items(result)
+        res.data(result)
         .send();
+    }
+    start();
+} */
+
+exports.retrieve_all = (req, res, next) => {
+    function start() {
+        mysql.use('master')
+            .query(`SELECT id,courier_id,courier_name,item_name,
+                    tracking_num,location,DATE(date_received) AS date_rcv,
+                    TIME(date_received) AS time_rcv, status FROM temp_assignment
+                    WHERE status = ?`,
+                [status[1]],
+                send_response
+            )
+            .end();
+    }
+
+    function send_response(err, result, args, last_query) {
+        if (err) {
+            winston.error('Error getting in assignments', last_query);
+            return next(err);
+        }
+
+        if (!result.length) {
+            return res.error('ZERO_RES', 'NO RECORDS FOUND');
+        }
+
+        res.data(result)
+            .send();
     }
     start();
 }
@@ -140,7 +171,8 @@ exports.get_assignment = (req,res,next)=>{
 exports.assignment_cour = (req, res, next) => {
     function start() {
         mysql.use('master')
-            .query(`SELECT id,courier_id,courier_name,item_name,tracking_num,location,DATE(date_received) AS date_rcv,
+            .query(`SELECT id,courier_id,courier_name,item_name,
+                    tracking_num,location,DATE(date_received) AS date_rcv,
                     TIME(date_received) AS time_rcv, status FROM temp_assignment
                     WHERE status = ? AND courier_id = ?`,
                 [status[1],req.params.courier_id],
