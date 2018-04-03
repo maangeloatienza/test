@@ -13,7 +13,8 @@ exports.assign = (req,res,next)=>{
         .form_data({
             courier_id : '',
             item_id : '',
-            location: ''
+            location: '',
+            area : ''
         })
         .from(req.body)
 
@@ -74,8 +75,8 @@ exports.assign = (req,res,next)=>{
 
         mysql.use('master')
             .query(`INSERT INTO temp_assignment(courier_id ,courier_name ,item_name ,
-                    location,tracking_num,date_received,status) VALUES(?,?,?,?,?,?,?)`,
-            [data.courier_id,data.courier,data.item,data.location,data.tracking_num,data.date_received,status[0]],
+                    location,area,tracking_num,date_received,status) VALUES(?,?,?,?,?,?,?,?)`,
+            [data.courier_id,data.courier,data.item,data.location,data.area,data.tracking_num,data.date_received,status[0]],
             send_response
             )
 
@@ -108,44 +109,14 @@ exports.assign = (req,res,next)=>{
     }
     start();
 };
-/* 
-exports.retrieve = (req,res,next)=>{
-    function start(){
-        mysql.use('master')
-            .query(`SELECT id,courier_id,courier_name,item_name,tracking_num,location,
-                    DATE(date_received) AS date_rcv,
-                    TIME(date_received) AS time_rcv,
-                    status FROM temp_assignment WHERE status = ?`,
-            [status[1]],
-            send_response
-        )
-        .end();
-    }
 
-    function send_response(err,result,args,last_query){
-        if(err){
-            winston.error('Error getting in assignments',last_query);
-            return next(err);
-        }
-
-        if(!result.length){
-            return res.error('ZERO_RES','NO RECORDS FOUND');
-        }
-
-        res.data(result)
-        .send();
-    }
-    start();
-} */
 
 exports.retrieve_all = (req, res, next) => {
     function start() {
         mysql.use('master')
             .query(`SELECT id,courier_id,courier_name,item_name,
                     tracking_num,location,DATE(date_received) AS date_rcv,
-                    TIME(date_received) AS time_rcv, status FROM temp_assignment
-                    WHERE status = ?`,
-                [status[1]],
+                    TIME(date_received) AS time_rcv, status FROM temp_assignment`,
                 send_response
             )
             .end();
@@ -161,7 +132,7 @@ exports.retrieve_all = (req, res, next) => {
             return res.error('ZERO_RES', 'NO RECORDS FOUND');
         }
 
-        res.data(result)
+        res.items(result)
             .send();
     }
     start();
@@ -191,7 +162,7 @@ exports.assignment_cour = (req, res, next) => {
             return res.error('ZERO_RES', 'NO RECORDS FOUND');
         }
 
-        res.data(result)
+        res.item(result)
             .send();
     }
     start();

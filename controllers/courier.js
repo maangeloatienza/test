@@ -27,7 +27,7 @@ exports.retrieve = (req,res,next)=>{
         for(var i in result){
             courier.push({ id: result[i].id, full_name: result[i].first_name + " " + result[i].last_name   });
         }
-        res.data(courier)
+        res.items(courier)
             .send();
     }
         start();
@@ -56,7 +56,7 @@ exports.retrieve_id = (req, res, next) => {
         for (var i in result) {
             courier.push({ id: result[i].id, full_name: result[i].first_name + " " + result[i].last_name });
         }
-        res.data(courier)
+        res.item(courier)
             .send();
     }
     start();

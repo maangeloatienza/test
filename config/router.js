@@ -22,14 +22,15 @@ module.exports = (router) => {
     router.post ('/package/create',                        __.pack.create_item);
     router.get  ('/package/:id',                           __.pack.retrieve_by_id);
     
-    router.post ('/inbound/scan',                          __.inbound.scan_item); // hZJFcmL2f3
+    router.post ('/inbound/scan',                          __.inbound.scan_item);
 
     router.get  ('/courier/:id',                           __.courier.retrieve_id);
     router.get  ('/courier/',                              __.courier.retrieve);
     router.post ('/courier/assignment',                    __.assignment.assign);
-    router.get  ('/courier/assignment/all',                    __.assignment.retrieve_all);
+    router.get  ('/courier/assignment/all',                __.assignment.retrieve_all);
     router.get  ('/courier/assignment/:courier_id',        __.assignment.assignment_cour);
-    //router courier
+
+    router.put ('/sort',                                  __.sorting.primary_sort);
 
     router.all('*', (req, res) => {
         res.status(404)

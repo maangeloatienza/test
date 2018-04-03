@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2018 at 06:46 AM
+-- Generation Time: Apr 03, 2018 at 08:03 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -44,7 +44,6 @@ CREATE TABLE `assignment` (
 
 CREATE TABLE `courier` (
   `id` int(6) NOT NULL,
-  `username` varchar(100) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -53,9 +52,9 @@ CREATE TABLE `courier` (
 -- Dumping data for table `courier`
 --
 
-INSERT INTO `courier` (`id`, `username`, `first_name`, `last_name`) VALUES
-(1, 'courier_1', 'Sample', 'Name'),
-(2, 'courier_2', 'Second', 'Sample');
+INSERT INTO `courier` (`id`, `first_name`, `last_name`) VALUES
+(1, 'Sample', 'Name'),
+(2, 'Second', 'Sample');
 
 -- --------------------------------------------------------
 
@@ -95,6 +94,7 @@ CREATE TABLE `temp_assignment` (
   `status` varchar(50) NOT NULL,
   `item_name` varchar(255) NOT NULL,
   `location` varchar(250) NOT NULL,
+  `area` varchar(255) NOT NULL,
   `tracking_num` varchar(10) NOT NULL,
   `date_received` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -103,15 +103,20 @@ CREATE TABLE `temp_assignment` (
 -- Dumping data for table `temp_assignment`
 --
 
-INSERT INTO `temp_assignment` (`id`, `courier_id`, `courier_name`, `status`, `item_name`, `location`, `tracking_num`, `date_received`) VALUES
-(9, 2, 'Second Sample', 'RECEIVED', 'Sample Item 6', 'Pasig', 'Y4iI95V5wk', '2018-04-03 11:30:21'),
-(10, 2, 'Second Sample', 'RECEIVED', 'Sample Item 1', 'Pasig', 'D1gmUbKu1S', '2018-04-03 11:35:45'),
-(11, 2, 'Second Sample', 'RECEIVED', 'Sample Item 3', 'Pasig', 'D0mGyPt0xX', '2018-04-03 11:36:02'),
-(12, 1, 'Sample Name', 'RECEIVED', 'Sample Item 4', 'Pasig', 'RhnUXtugfV', '2018-04-03 11:36:29'),
-(13, 1, 'Sample Name', 'RECEIVED', 'Sample Item 5', 'Pasig', 'HvMpFztAZb', '2018-04-03 11:37:02'),
-(14, 1, 'Sample Name', 'RECEIVED', 'Sample Item 6', 'Pasig', 'Ic0cajs8tW', '2018-04-03 11:38:16'),
-(15, 2, 'Second Sample', 'FOR_INBOUND', 'Sample Item 6', 'Pasig', '7xLRhAye6I', '2018-04-03 11:40:27'),
-(16, 2, 'Second Sample', 'FOR_INBOUND', 'Sample Item 5', 'Pasig', 'K2enqHf9Rp', '2018-04-03 11:40:39');
+INSERT INTO `temp_assignment` (`id`, `courier_id`, `courier_name`, `status`, `item_name`, `location`, `area`, `tracking_num`, `date_received`) VALUES
+(9, 2, 'Second Sample', 'RECEIVED', 'Sample Item 6', 'Pasig', '', 'Y4iI95V5wk', '2018-04-03 11:30:21'),
+(10, 2, 'Second Sample', 'RECEIVED', 'Sample Item 1', 'Pasig', '', 'D1gmUbKu1S', '2018-04-03 11:35:45'),
+(11, 2, 'Second Sample', 'RECEIVED', 'Sample Item 3', 'Pasig', '', 'D0mGyPt0xX', '2018-04-03 11:36:02'),
+(12, 1, 'Sample Name', 'RECEIVED', 'Sample Item 4', 'Pasig', '', 'RhnUXtugfV', '2018-04-03 11:36:29'),
+(13, 1, 'Sample Name', 'RECEIVED', 'Sample Item 5', 'Pasig', '', 'HvMpFztAZb', '2018-04-03 11:37:02'),
+(14, 1, 'Sample Name', 'RECEIVED', 'Sample Item 6', 'Pasig', '', 'Ic0cajs8tW', '2018-04-03 11:38:16'),
+(15, 2, 'Second Sample', 'FOR_INBOUND', 'Sample Item 6', 'Pasig', '', '7xLRhAye6I', '2018-04-03 11:40:27'),
+(16, 2, 'Second Sample', 'FOR_INBOUND', 'Sample Item 5', 'Pasig', '', 'K2enqHf9Rp', '2018-04-03 11:40:39'),
+(17, 2, 'Second Sample', 'FOR_INBOUND', 'Sample Item 5', 'Pasig', '', 'uvDL31GTuw', '2018-04-03 13:32:12'),
+(18, 1, 'Sample Name', 'FOR_INBOUND', 'Sample Item 1', 'Pasig', '', 'e8CgKpuRtp', '2018-04-03 13:53:01'),
+(19, 1, 'Sample Name', 'FOR_INBOUND', 'item 2', 'Pasig', '', 'a2Un1aHoXb', '2018-04-03 13:53:07'),
+(20, 1, 'Sample Name', 'FOR_INBOUND', 'Sample Item 3', 'Pasig', '', 'KNYJ7hC5zA', '2018-04-03 13:53:15'),
+(21, 1, 'Sample Name', 'FOR_INBOUND', 'Sample Item 4', 'Pasig', '', '8RFr5Ptsnt', '2018-04-03 13:53:20');
 
 -- --------------------------------------------------------
 
@@ -185,7 +190,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `temp_assignment`
 --
 ALTER TABLE `temp_assignment`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `users`
