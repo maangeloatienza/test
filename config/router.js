@@ -24,9 +24,12 @@ module.exports = (router) => {
     
     router.post ('/inbound/scan',                          __.inbound.scan_item); // hZJFcmL2f3
 
+    router.get  ('/courier/:id',                             __.courier.retrieve_id);
+    router.get  ('/courier/',                              __.courier.retrieve);
     router.post ('/courier/assignment',                    __.assignment.assign);
     router.get  ('/courier/assignment',                    __.assignment.get_assignment);
     router.get  ('/courier/assignment/:courier_id',        __.assignment.assignment_cour);
+    //router courier
 
     router.all('*', (req, res) => {
         res.status(404)
